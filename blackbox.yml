@@ -1,0 +1,9 @@
+modules:    #different tests
+  http_2xx:  #module name
+    prober: http   #type of test
+    timeout: 5s    #check within 5sec
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2"]    #version
+      method: GET    #use to fetch a website
+      preferred_ip_protocol: "ip4"
+

@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 15s  #prometheus will scrape the target every 15 seconds 
+
+scrape_configs:
+  - job_name: 'blackbox_https_monitor'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # This checks for HTTP 200 status
+    static_configs:
+      - targets:
+          - https://flocard.app
+          - https://www.flocard.app
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: localhost:9115  # Blackbox Exporter address
